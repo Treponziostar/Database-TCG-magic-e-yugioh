@@ -1,0 +1,131 @@
+/* Barra dei tab: contenitore → dispone i figli in riga */
+nav {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Aspetto base di ogni tab (sempre presente, attivo o no) */
+.tab {
+  font: inherit;
+  color: var(--text);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent; /* occupa già lo spazio: l'attivo lo colora soltanto */
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+}
+
+/* Solo ciò che cambia quando il tab è attivo: bordo + colore + peso, non solo colore */
+.tab.active {
+  color: var(--text-h);
+  font-weight: 600;
+  border-bottom-color: var(--accent);
+}
+
+/* Focus da tastiera: sempre visibile, contrasto ≥ 3:1 */
+.tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.card-item{
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--bg);
+  gap: 0.5rem;
+  overflow: hidden;
+}
+
+.card-item img{
+  width: 100%;
+  display: block;
+  border-radius: 0.5rem;
+  aspect-ratio: 63/88;
+  object-fit: cover;
+}
+
+.collection-grid, .results-grid{
+  list-style: none; /* sono <ul>: via pallini, padding e margin nativi */
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
+  gap: 1rem;
+}
+/* --- Bottone attorno all'immagine nelle card: invisibile, solo cliccabile --- */
+.card-zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+  border-radius: 0.5rem; /* così l'outline di focus segue gli angoli dell'immagine */
+}
+
+.card-zoom:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* --- Dialog con la carta ingrandita ------------------------------------- */
+
+/* Scatola: azzera l'aspetto nativo (padding e bordo grigio) e la limita
+   alla finestra. vw/vh = percentuali della finestra: è il suo responsive */
+.card-dialog {
+  position: relative; /* riferimento per il bottone Chiudi in absolute */
+  padding: 0;
+  border: none;
+  border-radius: 0.75rem;
+  background: transparent;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: visible; /* il bottone Chiudi sporge un po' fuori dall'immagine */
+}
+
+/* Lo sfondo scuro dietro al dialog: pseudo-elemento, esiste solo con showModal() */
+.card-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* L'immagine decide la dimensione del dialog: alta quanto serve, mai oltre
+   lo schermo; la larghezza segue in proporzione */
+.card-dialog img {
+  display: block;
+  width: auto;
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 0.75rem;
+}
+
+/* Chiudi: tondo, in alto a destra, target 40px, bianco su fondo scuro */
+.card-dialog-close {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #08060d;
+  color: #fff;
+  font: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.card-dialog-close:hover {
+  background: var(--accent);
+}
+
+.card-dialog-close:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}

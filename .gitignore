@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.db
+.env
+.DS_Store
+
+# Impostazioni locali di Claude Code
+.claude/
+
+# Note di studio personali (restano solo in locale)
+NOTE_CONCETTI.md
+GUIDA_*.md
+REPORT_*.md
+TODO_*.md
+DATI_CARTE.md
