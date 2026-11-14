@@ -7,6 +7,9 @@ tenendo traccia delle quantità.
 
 > Progetto personale realizzato per imparare lo sviluppo full-stack con React,
 > Node.js ed Express. È ancora in sviluppo: la parte grafica è in lavorazione.
+>
+> 🤖 Sviluppato in **vibe coding** con [Claude](https://claude.com/claude-code)
+> (Claude Code), l'assistente AI di Anthropic.
 
 ## Funzionalità
 
