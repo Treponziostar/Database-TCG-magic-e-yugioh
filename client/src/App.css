@@ -129,3 +129,13 @@ nav {
   outline: 2px solid #fff;
   outline-offset: 2px;
 }
+
+/* Avviso visibile solo nella versione demo (GitHub Pages) */
+.demo-banner {
+  margin: 0;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-h, var(--text));
+  text-align: center;
+  font-size: 0.95rem;
+}

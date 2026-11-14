@@ -1,9 +1,12 @@
-# DB Carte Magic e Yu-Gi-Oh!
+# DB Carte Magic e Yu-Gi-Oh
 
 Web app full-stack per catalogare la propria collezione di carte collezionabili
 **Magic: The Gathering** e **Yu-Gi-Oh!**: si cerca una carta per nome, si
 sceglie la stampa o l'illustrazione giusta e la si aggiunge alla collezione,
 tenendo traccia delle quantità.
+
+**[▶ Prova la demo online](https://treponziostar.github.io/Database-TCG-magic-e-yugioh/)**,
+senza installare nulla (vedi [Versione demo](#versione-demo)).
 
 > Progetto personale realizzato per imparare lo sviluppo full-stack con React,
 > Node.js ed Express. È ancora in sviluppo: la parte grafica è in lavorazione.
@@ -27,10 +30,10 @@ tenendo traccia delle quantità.
 
 ## Stack
 
-| Livello  | Tecnologie |
-|----------|------------|
+| Livello | Tecnologie |
+| --- | --- |
 | Frontend | React 19, Vite, oxlint |
-| Backend  | Node.js, Express 5 |
+| Backend | Node.js, Express 5 |
 | Database | SQLite (better-sqlite3) |
 | Sicurezza | helmet, CORS limitato, express-rate-limit, validazione degli input |
 
@@ -85,11 +88,32 @@ HOST=127.0.0.1
 CLIENT_ORIGIN=http://localhost:5173
 ```
 
+## Versione demo
+
+La demo online è la stessa app React senza backend: la ricerca chiama
+direttamente Scryfall e YGOPRODeck dal browser e la collezione viene salvata
+nel `localStorage` di chi la visita (ognuno ha la propria, nessuno vede quella
+degli altri). I componenti non cambiano: [`client/src/api.js`](client/src/api.js)
+sceglie tra la versione con server ([`api-server.js`](client/src/api-server.js))
+e quella demo ([`api-demo.js`](client/src/api-demo.js)), che hanno le stesse funzioni.
+
+Sicurezza della demo:
+
+- i dati letti dal `localStorage` vengono validati come input non fidato
+  (stessi limiti del server); se sono corrotti si riparte da una collezione vuota;
+- vengono accettate solo immagini `https://`;
+- una Content Security Policy permette solo i propri script e stili, le due
+  API delle carte e le loro immagini.
+
+Per avviarla in locale: `cd client && npm run dev:demo`. A ogni push su `main`
+una GitHub Action ([`deploy-demo.yml`](.github/workflows/deploy-demo.yml))
+la ricompila e la pubblica su GitHub Pages.
+
 ## Struttura
 
 ```
 client/          frontend React + Vite
-  src/api.js         chiamate al backend
+  src/api.js         sceglie tra api-server.js (backend) e api-demo.js (demo)
   src/components/    SearchView, CollectionView
 server/          backend Express
   routes/            search.js (API esterne), collection.js (CRUD)

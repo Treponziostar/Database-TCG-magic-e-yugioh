@@ -4,6 +4,7 @@ import {
   addToCollection,
   updateCollectionItem,
   removeFromCollection,
+  IS_DEMO,
 } from "./api";
 import SearchView from "./components/SearchView";
 import CollectionView from "./components/CollectionView";
@@ -135,6 +136,11 @@ function App() {
         </button>
         {openedCard && <img src={openedCard.imageUrl} alt={openedCard.name} />}
       </dialog>
+      {IS_DEMO && (
+        <p className="demo-banner" role="note">
+          Versione demo: la collezione viene salvata solo in questo browser.
+        </p>
+      )}
       <nav aria-label="Sezioni">
         <button
           onClick={() => setView("search")}
